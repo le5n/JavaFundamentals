@@ -1,10 +1,10 @@
 package homeworkTwo;
 
-class Pen {
+class Pen extends Stationery{
     private String colour;
     private String type;
     private String firm;
-    private int price;
+
 
 
     void setType(String type) {
@@ -19,12 +19,9 @@ class Pen {
         this.firm = firm;
     }
 
-    void setPrice(int price) {
-        this.price = price;
-    }
 
     String getFullPen() {
-        return "colour: " + colour + "\ntype: " + type + "\nfirm: " + firm + "\nprice: " + price;
+        return "colour: " + colour + "\ntype: " + type + "\nfirm: " + firm + "\nprice: " + getPrice();
     }
 
     @Override
@@ -37,9 +34,7 @@ class Pen {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (price != pen.price) {
-            return false;
-        }
+
         if (colour != null ? !colour.equals(pen.colour) : pen.colour != null) {
             return false;
         }
@@ -54,7 +49,6 @@ class Pen {
     public int hashCode() {
         int result = colour != null ? colour.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + price;
         result = 31 * result + (firm != null ? firm.hashCode() : 0);
         return result;
     }
