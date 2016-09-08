@@ -3,7 +3,7 @@ package homeworkTwo;
 class Pen {
     private String colour;
     private String type;
-    private boolean multiplyUse; //true - если можно заменять стержень
+    private String firm;
     private int price;
 
 
@@ -15,8 +15,8 @@ class Pen {
         this.colour = colour;
     }
 
-    void setMultiplyUse(boolean multiplyUse) {
-        this.multiplyUse = multiplyUse;
+    public void setFirm(String firm) {
+        this.firm = firm;
     }
 
     void setPrice(int price) {
@@ -24,12 +24,7 @@ class Pen {
     }
 
     String getFullPen() {
-        String multUse = " with multiply usage";
-        String notMultUse = " without multiply usage";
-        if (multiplyUse == true) {
-            return colour + " " + type + multUse + " costs " + price;
-        }
-        return colour + " " + type + notMultUse + " costs " + price;
+        return "colour: " + colour + "\ntype: " + type + "\nfirm: " + firm + "\nprice: " + price;
     }
 
     @Override
@@ -39,19 +34,19 @@ class Pen {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (multiplyUse != pen.multiplyUse) {
-            return false;
-        }
-        if (price != pen.price){
+        if (price != pen.price) {
             return false;
         }
         if (colour != null ? !colour.equals(pen.colour) : pen.colour != null) {
             return false;
         }
-        return type != null ? type.equals(pen.type) : pen.type == null;
+        if (type != null ? !type.equals(pen.type) : pen.type != null) {
+            return false;
+        }
+        return firm != null ? firm.equals(pen.firm) : pen.firm == null;
 
     }
 
@@ -59,19 +54,8 @@ class Pen {
     public int hashCode() {
         int result = colour != null ? colour.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (multiplyUse ? 1 : 0);
         result = 31 * result + price;
-
+        result = 31 * result + (firm != null ? firm.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Pen{" +
-                "colour='" + colour + '\'' +
-                ", type='" + type + '\'' +
-                ", multiplyUse=" + multiplyUse +
-                ", price=" + price +
-                '}';
     }
 }
