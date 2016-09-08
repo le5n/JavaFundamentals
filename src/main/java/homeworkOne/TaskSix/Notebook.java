@@ -1,5 +1,6 @@
 package homeworkOne.TaskSix;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Notebook {
