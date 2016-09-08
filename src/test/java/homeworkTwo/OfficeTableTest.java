@@ -20,7 +20,8 @@ public class OfficeTableTest {
         Stationery [] expectedKit = new Stationery[] {liner, paperPack, pencil, pen};
         String [] expectedClasses = new String[expectedKit.length];
 
-        Stationery [] actualKit = officeTableOne.makeKit();
+        officeTableOne.makeKit();
+        Stationery [] actualKit = officeTableOne.getTableKit();
         String [] actualClasses = new String[actualKit.length];
 
         for (int i = 0; i < expectedKit.length; i++) {
@@ -48,10 +49,11 @@ public class OfficeTableTest {
         int [] prices = new int [] {pen.getPrice(), pencil.getPrice(), liner.getPrice(), paperPack.getPrice()};
         int expectedPrice = 0;
 
-        for (int i = 0; i < prices.length; i++) {
-            expectedPrice += prices[i];
+        for (int price : prices) {
+            expectedPrice += price;
         }
-       Stationery [] actualKit  = officeTableOne.makeKit();
+       Stationery [] actualKit  = officeTableOne.getTableKit();
+        officeTableOne.makeKit();
         int actualPrice = officeTableOne.kitPrice(actualKit);
 
         assertEquals(expectedPrice, actualPrice);
