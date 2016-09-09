@@ -15,7 +15,7 @@ public class OfficeTableTest {
     Pencil pencil = new Pencil();
 
     @Test
-    public void makeOfficeTableSet() {
+    public void makeOfficeTableSet() throws Exception {
 
         Stationery [] expectedKit = new Stationery[] {liner, paperPack, pencil, pen};
         String [] expectedClasses = new String[expectedKit.length];
@@ -40,7 +40,7 @@ public class OfficeTableTest {
     }
 
     @Test
-    public void getKitFullPrice(){
+    public void getKitFullPrice() throws Exception{
         pen.setPrice(25);
         pencil.setPrice(15);
         liner.setPrice(10);
