@@ -8,15 +8,14 @@ import static org.junit.Assert.*;
 
 public class OfficeTableTest {
 
-    OfficeTable officeTableOne = new OfficeTable();
-    Liner liner = new Liner();
-    PaperPack paperPack = new PaperPack();
-    Pen pen = new Pen();
-    Pencil pencil = new Pencil();
+    private OfficeTable officeTableOne = new OfficeTable();
+    private Liner liner = new Liner();
+    private PaperPack paperPack = new PaperPack();
+    private Pen pen = new Pen();
+    private Pencil pencil = new Pencil();
 
     @Test
-    public void makeOfficeTableSet() {
-
+    public void makeOfficeTableSet() throws Exception {
         Stationery [] expectedKit = new Stationery[] {liner, paperPack, pencil, pen};
         String [] expectedClasses = new String[expectedKit.length];
 
@@ -36,10 +35,13 @@ public class OfficeTableTest {
 
         assertArrayEquals(expectedClasses,actualClasses);
 
+        Arrays.sort(officeTableOne.getStationeries(), (i, j) -> i.getPrice() - j.getPrice());
+
+
     }
 
     @Test
-    public void getKitFullPrice(){
+    public void getKitFullPrice() throws Exception{
         pen.setPrice(25);
         pencil.setPrice(15);
         liner.setPrice(10);
@@ -48,8 +50,8 @@ public class OfficeTableTest {
         int [] prices = new int [] {pen.getPrice(), pencil.getPrice(), liner.getPrice(), paperPack.getPrice()};
         int expectedPrice = 0;
 
-        for (int i = 0; i < prices.length; i++) {
-            expectedPrice += prices[i];
+        for (int price : prices) {
+            expectedPrice += price;
         }
        Stationery [] actualKit  = officeTableOne.makeKit();
         int actualPrice = officeTableOne.kitPrice(actualKit);

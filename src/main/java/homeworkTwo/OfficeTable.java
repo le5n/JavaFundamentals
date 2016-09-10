@@ -1,22 +1,40 @@
 package homeworkTwo;
 
 public class OfficeTable {
-    Stationery[] tableKit;
-    Liner liner = new Liner();
-    PaperPack paperPack = new PaperPack();
-    Pen pen = new Pen();
-    Pencil pencil = new Pencil();
+    private Liner liner;
+    private PaperPack paperPack;
+    private Pen pen;
+    private Pencil pencil;
+    private Stationery[] stationeries;
 
-
+    public OfficeTable() {
+        liner = new Liner();
+        paperPack = new PaperPack();
+        pen = new Pen();
+        pencil = new Pencil();
+    }
 
     public Stationery[] makeKit() {
-        return tableKit = new Stationery[]{liner, paperPack, pen, pencil};
+        initKitPrices();
+        stationeries = new Stationery[]{liner, paperPack, pen, pencil};
+        return stationeries;
+    }
+
+    public Stationery[] getStationeries() {
+        return stationeries;
+    }
+
+    private void initKitPrices() {
+        pen.setPrice(25);
+        pencil.setPrice(15);
+        liner.setPrice(10);
+        paperPack.setPrice(100);
     }
 
     int kitPrice(Stationery [] kit) {
         int fullPrice = 0;
-        for (int i = 0; i < kit.length; i++) {
-            fullPrice = fullPrice + kit[i].getPrice();
+        for (Stationery aKit : kit) {
+            fullPrice = fullPrice + aKit.getPrice();
         }
 
         return fullPrice;
