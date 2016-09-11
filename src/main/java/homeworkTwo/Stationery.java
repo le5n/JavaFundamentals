@@ -1,22 +1,22 @@
 package homeworkTwo;
 
-public abstract class Stationery{
+abstract class Stationery {
     private int price;
     private String name;
 
-    public int getPrice() {
+    int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    void setPrice(int price) {
         this.price = price;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 }

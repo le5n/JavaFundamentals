@@ -1,8 +1,9 @@
 package homeworkTwo;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -14,49 +15,53 @@ public class OfficeTableTest {
     private Pen pen = new Pen();
     private Pencil pencil = new Pencil();
 
-    @Test
-    public void makeOfficeTableSet() throws Exception {
-        Stationery [] expectedKit = new Stationery[] {liner, paperPack, pencil, pen};
-        String [] expectedClasses = new String[expectedKit.length];
-
-        Stationery [] actualKit = officeTableOne.makeKit();
-        String [] actualClasses = new String[actualKit.length];
-
-        for (int i = 0; i < expectedKit.length; i++) {
-            expectedClasses[i] = expectedKit[i].getClass().toString();
-        }
-
-        for (int i = 0; i < actualKit.length; i++) {
-            actualClasses[i] = actualKit[i].getClass().toString();
-        }
-
-        Arrays.sort(expectedClasses);
-        Arrays.sort(actualClasses);
-
-        assertArrayEquals(expectedClasses,actualClasses);
-
-        Arrays.sort(officeTableOne.getStationeries(), (i, j) -> i.getPrice() - j.getPrice());
-
-
+    @Before
+    public void setPrice() {
+        liner.setPrice(10);
+        paperPack.setPrice(100);
+        pen.setPrice(25);
+        pencil.setPrice(20);
     }
 
     @Test
-    public void getKitFullPrice() throws Exception{
-        pen.setPrice(25);
-        pencil.setPrice(15);
-        liner.setPrice(10);
-        paperPack.setPrice(100);
+    public void priceOfficeTableKit() throws Exception {
 
-        int [] prices = new int [] {pen.getPrice(), pencil.getPrice(), liner.getPrice(), paperPack.getPrice()};
-        int expectedPrice = 0;
+        officeTableOne.makeOfficeTableKit(liner);
+        officeTableOne.makeOfficeTableKit(pen);
+        officeTableOne.makeOfficeTableKit(pencil);
+        officeTableOne.makeOfficeTableKit(paperPack);
 
-        for (int price : prices) {
-            expectedPrice += price;
-        }
-       Stationery [] actualKit  = officeTableOne.makeKit();
-        int actualPrice = officeTableOne.kitPrice(actualKit);
-
+        int actualPrice = officeTableOne.countPrice();
+        int expectedPrice = 155;
         assertEquals(expectedPrice, actualPrice);
 
+    }
+
+    @Before
+    public void setName() {
+        liner.setName("Линейка");
+        pen.setName("Ручка");
+        pencil.setName("Карандаш");
+        paperPack.setName("Бумага");
+    }
+
+    @Test
+    public void correctCompare() throws Exception {
+        Comparator<Stationery> stationeryComparator = new StationeryPriceCompare().thenComparing(new StationeryNameCompare());
+        officeTableOne.makeOfficeTableKit(liner);
+        officeTableOne.makeOfficeTableKit(pen);
+        officeTableOne.makeOfficeTableKit(pencil);
+        officeTableOne.makeOfficeTableKit(paperPack);
+
+        ArrayList<Stationery> actualKit = officeTableOne.getOfficeStationaryKit();
+        Collections.sort(actualKit, stationeryComparator);
+
+        int[] expectedPrice = new int[]{10, 20, 25, 100};
+        String[] expcetedName = new String[]{"Линейка", "Карандаш", "Ручка", "Бумага"};
+
+        for (int i = 0; i < actualKit.size(); i++) {
+            assertEquals(expectedPrice[i], actualKit.get(i).getPrice());
+            assertEquals(expcetedName[i], actualKit.get(i).getName());
+        }
     }
 }

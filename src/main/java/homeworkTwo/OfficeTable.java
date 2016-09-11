@@ -1,42 +1,31 @@
 package homeworkTwo;
 
-public class OfficeTable {
+import java.util.ArrayList;
+import java.util.Comparator;
+
+class OfficeTable {
     private Liner liner;
     private PaperPack paperPack;
     private Pen pen;
     private Pencil pencil;
-    private Stationery[] stationeries;
+    Comparator<Stationery> stationeryComparator = new StationeryPriceCompare().
+            thenComparing(new StationeryNameCompare());
+    private ArrayList<Stationery> officeStationaryKit = new ArrayList<Stationery>();
 
-    public OfficeTable() {
-        liner = new Liner();
-        paperPack = new PaperPack();
-        pen = new Pen();
-        pencil = new Pencil();
+    void makeOfficeTableKit(Stationery thing) {
+        officeStationaryKit.add(thing);
     }
 
-    public Stationery[] makeKit() {
-        initKitPrices();
-        stationeries = new Stationery[]{liner, paperPack, pen, pencil};
-        return stationeries;
+    ArrayList<Stationery> getOfficeStationaryKit() {
+        return officeStationaryKit;
     }
 
-    public Stationery[] getStationeries() {
-        return stationeries;
-    }
 
-    private void initKitPrices() {
-        pen.setPrice(25);
-        pencil.setPrice(15);
-        liner.setPrice(10);
-        paperPack.setPrice(100);
-    }
-
-    int kitPrice(Stationery [] kit) {
+    int countPrice() {
         int fullPrice = 0;
-        for (Stationery aKit : kit) {
-            fullPrice = fullPrice + aKit.getPrice();
+        for (Stationery anOfficeStationaryKit : officeStationaryKit) {
+            fullPrice += anOfficeStationaryKit.getPrice();
         }
-
         return fullPrice;
     }
 }

@@ -1,6 +1,6 @@
 package homeworkTwo;
 
-public class Pencil extends Stationery {
+ class Pencil extends Stationery {
     private String type;
 
     public String getType() {
@@ -11,19 +11,5 @@ public class Pencil extends Stationery {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Pencil pencil = (Pencil) o;
-
-        return type.equals(pencil.type);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return type.hashCode();
-    }
 }
