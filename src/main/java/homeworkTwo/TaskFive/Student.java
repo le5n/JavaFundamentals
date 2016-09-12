@@ -3,27 +3,24 @@ package homeworkTwo.TaskFive;
 import java.util.ArrayList;
 
 public class Student {
-   private String name;
+    private String name;
     private int age;
     private ArrayList<Subjects> studentSchedule = new ArrayList<>();
 
-    public String getName() {
-        return name;
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void chooseSubject(Subjects subject){
+    public void chooseSubject(Subjects subject) {
         studentSchedule.add(subject);
     }
 
