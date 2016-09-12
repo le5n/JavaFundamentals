@@ -1,4 +1,4 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
 abstract class Stationery {
     private int price;

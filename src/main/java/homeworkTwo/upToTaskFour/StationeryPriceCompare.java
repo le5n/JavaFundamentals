@@ -1,8 +1,8 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
 import java.util.Comparator;
 
-public class StationeryPriceCompare implements Comparator<Stationery> {
+class StationeryPriceCompare implements Comparator<Stationery> {
     @Override
     public int compare(Stationery priceOne, Stationery proceTwo) {
         if (priceOne.getPrice() < proceTwo.getPrice()) {

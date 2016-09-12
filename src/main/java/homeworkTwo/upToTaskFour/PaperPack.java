@@ -1,4 +1,4 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
 class PaperPack extends Stationery {
     private int amountOfLists = 100;

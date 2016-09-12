@@ -1,4 +1,4 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
  class Pencil extends Stationery {
     private String type;

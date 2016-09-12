@@ -1,4 +1,4 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
 class Liner extends Stationery {
     private int size = 25;

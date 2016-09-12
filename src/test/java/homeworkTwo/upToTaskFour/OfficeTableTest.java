@@ -1,5 +1,6 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
+import homeworkTwo.*;
 import org.junit.Before;
 import org.junit.Test;
 

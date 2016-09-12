@@ -1,4 +1,4 @@
-package homeworkTwo;
+package homeworkTwo.upToTaskFour;
 
 class Pen extends Stationery {
     private String colour;
