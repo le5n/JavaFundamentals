@@ -2,16 +2,14 @@ package homeworkTwo.TaskFive;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import java.util.ArrayList;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StudentTest {
-    Student student = new Student("Вася Пупкин", 21);
-    ArrayList<Subjects> actualSubjects = student.getSchedule();
+    private Student student = new Student("Вася Пупкин", 21);
+    private ArrayList<Subjects> actualSubjects = student.getSchedule();
 
 
     @Before
@@ -25,7 +23,7 @@ public class StudentTest {
 
     @Test
     public void scheduleTest() throws Exception {
-        ArrayList<Subjects> expectedSubjects = new ArrayList<Subjects>();
+        ArrayList<Subjects> expectedSubjects = new ArrayList<>();
 
         expectedSubjects.add(Subjects.HISTORY);
         expectedSubjects.add(Subjects.LITERATURE);
@@ -34,17 +32,6 @@ public class StudentTest {
 
         assertEquals(expectedSubjects, actualSubjects);
     }
-
-    @Test public void markTest() throws Exception{
-        Subjects subjects = Subjects.valueOf("HISTORY");
-        subjects.check();
-
-
-
-
-
-    }
-
 
 
 }

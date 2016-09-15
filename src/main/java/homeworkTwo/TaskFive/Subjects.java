@@ -1,28 +1,46 @@
 package homeworkTwo.TaskFive;
 
+
 enum Subjects {
 
     HISTORY {
-        public void check() {
-            System.out.println("я работаю бля");
+        @Override
+        public void setMark(double mark) {
+            markDouble = mark;
+        }
+
+        @Override
+        public void setMark(int mark) {
+            System.out.println("Для этого предмета необходимо выставлять вещественные оценки");
         }
     }, MATH {
-        public void check() {
-            System.out.println("я работаю бля");
+        @Override
+        public void setMark(double mark) {
+            markDouble = mark;
         }
-    }, ENGLISH {
-        public void check() {
-            System.out.println("я работаю бля");
+
+        @Override
+        public void setMark(int mark) {
+            System.out.println("Для этого предмета необходимо выставлять вещественные оценки");
         }
-    }, ECONOMICS {
-        public void check() {
-            System.out.println("я работаю бля");
-        }
-    }, LITERATURE {
-        public void check() {
-            System.out.println("я работаю бля");
-        }
+    }, ENGLISH, ECONOMICS, LITERATURE;
+
+    int markInteger;
+    double markDouble;
+
+    public void setMark(int mark) {
+        markInteger = mark;
     }
 
+    public void setMark(double mark) {
+    }
 
+    public Object getMark(Subjects subject) {
+        if (subject == HISTORY || subject == MATH) {
+            return markDouble;
+        } else {
+            return markInteger;
+        }
+
+    }
 }
