@@ -1,5 +1,6 @@
 package homeworkTwo.upToTaskFour;
 
+
 abstract class Stationery {
     private int price;
     private String name;
