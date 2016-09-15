@@ -5,8 +5,8 @@ enum Subjects {
 
     HISTORY {
         @Override
-        public void setMark(double mark) {
-            markDouble = mark;
+        public void setMark(double mark){
+                markDouble = mark;
         }
 
         @Override

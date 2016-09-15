@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class StudentTest {
-    private Student student = new Student("Вася Пупкин", 21);
+    private Student student = new Student("Вася Пупкин");
     private ArrayList<Subjects> actualSubjects = student.getSchedule();
 
 
@@ -32,6 +32,4 @@ public class StudentTest {
 
         assertEquals(expectedSubjects, actualSubjects);
     }
-
-
 }

@@ -7,7 +7,7 @@ class Student {
     private ArrayList<Subjects> studentSchedule = new ArrayList<>();
 
 
-    public Student(String name, int age) {
+    public Student(String name) {
         this.name = name;
     }
 
