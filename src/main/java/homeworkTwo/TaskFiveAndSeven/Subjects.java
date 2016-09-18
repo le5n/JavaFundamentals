@@ -1,4 +1,4 @@
-package homeworkTwo.TaskFive;
+package homeworkTwo.TaskFiveAndSeven;
 
 
 enum Subjects {

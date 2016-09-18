@@ -1,11 +1,9 @@
 package homeworkOne.TaskSix;
 
-import java.util.Arrays;
-import java.util.Scanner;
 
 class Notebook {
     private String [] notes;
-    Note note = new Note();
+    private Note note = new Note();
     private int countOfNotes=0;
 
     public Notebook(int size) {
