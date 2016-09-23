@@ -5,34 +5,39 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class Questions {
+class Questions {
     Locale currentLocale;
-    Scanner in = new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
 
-    void setLocale() throws IOException {
+
+    Locale setLocale() throws IOException {
         System.out.println("Choose your locale: ru/eng");
-        String localeActual = in.nextLine().trim().toLowerCase();
-        if (localeActual == "ru") {
+        String localeActual = in.nextLine().toLowerCase();
+        if (localeActual.charAt(0) == 'r') {
             currentLocale = Locale.getDefault();
-        }
-        if (localeActual == "eng") {
-            currentLocale = Locale.ENGLISH;
+        } else if (localeActual.charAt(0) == 'e') {
+            currentLocale = Locale.US;
         } else {
             System.out.println("Incorrect input");
         }
+        return currentLocale;
     }
 
     String[] getQuestions() {
         if (currentLocale != null) {
             ResourceBundle rb = ResourceBundle.getBundle("text", currentLocale);
-            String[] questions = rb.getStringArray("q1");
+            String[] questions = rb.getString("q1").split(",");
+            for (String question : questions) {
+                System.out.println(question);
+            }
             return questions;
+        } else {
+            return null;
         }
-        return null;
-
     }
-
 }
+
+
 
 
 
