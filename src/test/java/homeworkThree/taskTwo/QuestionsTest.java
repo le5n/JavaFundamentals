@@ -9,19 +9,20 @@ import java.util.Locale;
 
 public class QuestionsTest {
     private Questions questions = new Questions();
-    @Before
-   public void setLocale () throws IOException{
 
-       questions.currentLocale = Locale.getDefault();
-   }
+    @Before
+    public void setLocale() throws IOException {
+        questions.currentLocale = Locale.getDefault();
+    }
 
     @Test
     public void getQuest() throws IOException {
-        String [] actualQuestions = questions.getQuestions();
-        String [] expectedQuestions = new String[]{"Как вас зовут?",
+        String[] actualQuestions = questions.getQuestions();
+        String[] expectedQuestions = new String[]{"Как вас зовут?",
                 "Из какого вы города?",
                 "Сколько вам лет?",
                 "В каком году вы закончили школу?"};
-        Assert.assertArrayEquals(expectedQuestions,actualQuestions);
+
+        Assert.assertArrayEquals(expectedQuestions, actualQuestions);
     }
 }
