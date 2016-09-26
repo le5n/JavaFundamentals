@@ -10,8 +10,11 @@ import java.util.regex.Pattern;
 
  class ByteIO {
     char[] readFile(String fileName) {
+
         byte[] byteText;
+        // TODO: 27.09.2016 make method to count bytes in file 
         char[] charFileText = new char[1969];
+
         FileOutputStream outFile = null;
         FileInputStream inFile = null;
 

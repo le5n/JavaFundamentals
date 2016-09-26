@@ -1,6 +1,5 @@
 package homeworkFour;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class Main {
                 keyWordsInfile.add(aCleanText);
             }
         }
-
+        // TODO: 27.09.2016 add this information to file (keyWordsInFile and amount of words)
         System.out.println("key words in file are: " + keyWordsInfile);
     }
 }
