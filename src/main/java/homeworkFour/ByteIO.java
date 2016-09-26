@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ByteIO {
-    public static void main(String[] args) {
+    public void readFile() {
         byte [] byteText;
         char [] charText;
         FileOutputStream outFile = null;
@@ -32,7 +32,12 @@ public class ByteIO {
         catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public int searchWord(char[] inputFileText){
+        String regex = "\\s[a-z]{2,12}\\s";
 
 
+        return 0;
     }
 }

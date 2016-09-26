@@ -19,8 +19,8 @@ public class RegexPictures {
         List<Integer> pictureNumbers = new ArrayList<>();
 
         try {
-            br = new BufferedReader(
-                    new FileReader("D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\article.html"));
+            br = new BufferedReader(new FileReader(
+                    "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\article.html"));
             String line = null;
 
             while ((line = br.readLine()) != null) {
