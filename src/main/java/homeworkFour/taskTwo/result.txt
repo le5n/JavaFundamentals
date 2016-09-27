@@ -1,1 +1,1 @@
-package s int private char while if byte try catch void 
+package import class new for int return private char while if byte try catch void 

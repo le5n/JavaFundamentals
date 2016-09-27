@@ -13,10 +13,8 @@ public class Main {
                 "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkFour\\taskOne\\keyWords.txt";
         String outFileName =
                 "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkFour\\taskTwo\\result.txt";
-// TODO: 27.09.2016 solve problem with incorrect output
-        resultText = charIO.findKeyWords(fileName,keyFileName);
-        boolean whatHappened = charIO.writeInFile(resultText,outFileName);
-        System.out.println(whatHappened);
 
+        resultText = charIO.findKeyWords(fileName,keyFileName);
+        charIO.writeInFile(resultText,outFileName);
     }
 }
