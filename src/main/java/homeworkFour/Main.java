@@ -2,28 +2,35 @@ package homeworkFour;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
         ByteIO byteIO = new ByteIO();
 
-        List<String> cleanText;
+        List<String> wordsInFIle;
         List<String> keyWords;
-        List<String> keyWordsInfile = new ArrayList<>();
+        List<String> cleanText = new ArrayList<>();
+        StringBuilder cleanTextSB = new StringBuilder();
+        char[] textToFile;
+        String outFileName = "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkFour\\result.txt";
 
-        char[] inputFile =
+        char[] fileChar =
                 byteIO.readFile("D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\RegexPictures.java");
-        cleanText = byteIO.searchWord(inputFile);
+        wordsInFIle = byteIO.searchWord(fileChar);
 
         char[] keyWordsChar = byteIO.readFile("D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkFour\\keyWords.txt");
         keyWords = byteIO.searchWord(keyWordsChar);
 
-        for (String aCleanText : cleanText) {
-            if (keyWords.contains(aCleanText)) {
-                keyWordsInfile.add(aCleanText);
-            }
+        cleanText.addAll(wordsInFIle.stream().filter(keyWords::contains).collect(Collectors.toList()));
+
+        for (int i = 0; i < cleanText.size(); i++) {
+            cleanTextSB.append(cleanText.get(i)).append(" ");
         }
-        // TODO: 27.09.2016 add this information to file (keyWordsInFile and amount of words)
-        System.out.println("key words in file are: " + keyWordsInfile);
+
+        textToFile = new char[cleanTextSB.length()];
+        cleanTextSB.getChars(0, cleanTextSB.length(), textToFile, 0);
+
+        byteIO.writeInFile(textToFile,outFileName);
     }
 }

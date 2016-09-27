@@ -8,21 +8,20 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
- class ByteIO {
+class ByteIO {
     char[] readFile(String fileName) {
 
         byte[] byteText;
-        // TODO: 27.09.2016 make method to count bytes in file 
-        char[] charFileText = new char[1969];
+        char[] charFileText = null;
 
-        FileOutputStream outFile = null;
-        FileInputStream inFile = null;
+        FileInputStream inFile;
 
         try {
             inFile = new FileInputStream(fileName);
             int countBytes = inFile.available();
 
             byteText = new byte[countBytes];
+            charFileText = new char[countBytes];
 
             inFile.read(byteText);
 
@@ -37,10 +36,11 @@ import java.util.regex.Pattern;
         return charFileText;
     }
 
-     List searchWord(char[] inputFileText) {
+    List searchWord(char[] inputFileText) {
         Pattern p = Pattern.compile("[a-zA-Z]{2,12}");
 
         StringBuilder text = new StringBuilder();
+        StringBuilder returnState = new StringBuilder();
         List<String> cleanText = new ArrayList<>();
 
         for (char anInputFileText : inputFileText) {
@@ -58,6 +58,24 @@ import java.util.regex.Pattern;
         }
 
         return cleanText;
+    }
+
+    void writeInFile(char[] note, String fileName) {
+        FileOutputStream outFile;
+        byte[] bytesToWrite = new byte[note.length];
+
+        try {
+            outFile = new FileOutputStream(fileName);
+            for (int i = 0; i < note.length; i++) {
+                bytesToWrite[i] = (byte) note[i];
+            }
+            outFile.write(bytesToWrite);
+
+            outFile.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
