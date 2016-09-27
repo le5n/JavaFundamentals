@@ -1,10 +1,8 @@
 package homeworkFour.taskTwo;
 
-import java.io.IOException;
-
 public class Main {
     public static void main(String[] args) {
-        CharIO charIO = new CharIO();
+        CharacterIO characterIO = new CharacterIO();
         StringBuilder resultText;
 
         String fileName =
@@ -14,7 +12,7 @@ public class Main {
         String outFileName =
                 "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkFour\\taskTwo\\result.txt";
 
-        resultText = charIO.findKeyWords(fileName,keyFileName);
-        charIO.writeInFile(resultText,outFileName);
+        resultText = characterIO.findKeyWords(fileName,keyFileName);
+        characterIO.writeInFile(resultText,outFileName);
     }
 }
