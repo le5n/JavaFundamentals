@@ -3,7 +3,7 @@ package homeworkFour.taskThree;
 import java.io.*;
 
 class CharByteIO {
-    StringBuilder readFile(String fileName) {
+    private StringBuilder readFile(String fileName) {
         StringBuilder textFromFile = new StringBuilder();
         BufferedReader r = null;
         try {
@@ -19,11 +19,11 @@ class CharByteIO {
         return textFromFile;
     }
 
-    void writeInFile(String fileName, StringBuilder text) {
+    void writeInFile(String readFileName, String writeFileName) {
         BufferedWriter bw;
-        String textToFile = text.toString();
+        String textToFile = readFile(readFileName).toString();
         try {
-            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF-16"));
+            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-16"));
             out.write(textToFile);
             out.close();
         } catch (IOException e) {
