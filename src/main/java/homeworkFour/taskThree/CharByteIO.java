@@ -3,21 +3,6 @@ package homeworkFour.taskThree;
 import java.io.*;
 
 class CharByteIO {
-    private StringBuilder readFile(String fileName) {
-        StringBuilder textFromFile = new StringBuilder();
-        BufferedReader r = null;
-        try {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "cp1251"));
-            while (r.ready()) {
-                String line = r.readLine();
-                textFromFile.append(line);
-            }
-            r.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return textFromFile;
-    }
 
     void writeInFile(String readFileName, String writeFileName) {
         BufferedWriter bw;
@@ -31,6 +16,20 @@ class CharByteIO {
         }
     }
 
-
+    private StringBuilder readFile(String fileName) {
+        StringBuilder textFromFile = new StringBuilder();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "cp1251"));
+            while (br.ready()) {
+                String line = br.readLine();
+                textFromFile.append(line);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return textFromFile;
+    }
 }
 
