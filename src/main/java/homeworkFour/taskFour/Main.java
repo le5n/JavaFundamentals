@@ -8,11 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         List<Movie> movies = new ArrayList<>();
-        File file = new File("movies.bin");
-        FileOutputStream fileOut = null;
-        ObjectOutputStream objectOut = null;
-        FileInputStream fileIn;
-        ObjectInputStream objectIn;
+        List<Movie> unserialized;
+
 
         Movie backToTheFuture = new Movie("Back to the future", 1985);
         backToTheFuture.addActors("Michal J Fox");
@@ -30,21 +27,11 @@ public class Main {
         movies.add(inception);
         movies.add(whipIt);
 
-        try {
-            fileOut = new FileOutputStream(file);
-            objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(movies);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                objectOut.flush();
-                fileOut.close();
-                objectOut.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        inception.serialize(movies, "movies.bin");
+
+        unserialized = inception.unSerialize("movies.bin");
+
+        System.out.println(unserialized);
 
     }
 }

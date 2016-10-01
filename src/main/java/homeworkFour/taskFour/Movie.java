@@ -1,23 +1,91 @@
 package homeworkFour.taskFour;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Movie implements Serializable {
-    List<String> actors = new ArrayList<>();
+class Movie implements Serializable {
+    private List<String> actors = new ArrayList<>();
     private String movieName;
     private int year;
 
 
-    public Movie(String movieName, int year) {
+    Movie(String movieName, int year) {
         this.movieName = movieName;
         this.year = year;
     }
 
-    public void addActors(String actorName) {
+    void addActors(String actorName) {
         actors.add(actorName);
     }
 
+    void serialize(List<Movie> movies, String fileName) {
+        Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
+        Matcher m = p.matcher(fileName);
 
+        if (m.matches()) {
+            File file = new File("movies.bin");
+            FileOutputStream fileOut = null;
+            ObjectOutputStream objectOut = null;
+
+            try {
+                fileOut = new FileOutputStream(file);
+                objectOut = new ObjectOutputStream(fileOut);
+                objectOut.writeObject(movies);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    objectOut.flush();
+                    fileOut.close();
+                    objectOut.close();
+                } catch (IOException | NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("wrong file name");
+        }
+    }
+
+    List<Movie> unSerialize(String fileName) {
+        FileInputStream fileIn = null;
+        ObjectInputStream objectIn = null;
+        List<Movie> unserialized;
+
+        Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
+        Matcher m = p.matcher(fileName);
+
+        if (m.matches()) {
+            try {
+                fileIn = new FileInputStream(fileName);
+                objectIn = new ObjectInputStream(fileIn);
+                unserialized = (List<Movie>) objectIn.readObject();
+                return unserialized;
+
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fileIn.close();
+                    objectIn.close();
+                } catch (IOException | NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("wrong file name");
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "\nMovie '" + movieName + " ' " +
+                "\nfilmed in " + year + " year\n" +
+                "main actors are " + actors;
+    }
 }
