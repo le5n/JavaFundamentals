@@ -13,7 +13,7 @@ public class Directories {
         directories.getDirectories(path);
     }
 
-     void getDirectories(String path) {
+    void getDirectories(String path) {
 
         File dir = new File(path);
 
@@ -26,20 +26,61 @@ public class Directories {
         System.out.print("You can enter the number of directory you want to see" +
                 "\nor enter 'back' to go back" +
                 "\nor enter 'create' to create new .txt file" +
+                "\nor enter 'delete' to delete file" +
                 "\nor enter number of .txt file to change it: ");
         String desiredDirectory = in.nextLine().toLowerCase().trim();
         System.out.println(desiredDirectory);
-        if (desiredDirectory.equals("back")) {
-            goBack(path);
-        } else {
-            path = files[Integer.parseInt(desiredDirectory)].toString();
-            if (files[Integer.parseInt(desiredDirectory)].isDirectory()) {
-                getDirectories(path);
-            } else if (files[Integer.parseInt(desiredDirectory)].isFile()) {
-                System.out.println(readFile(path));
-                System.out.print("add or rewrite? ");
-                String addRewr = in.nextLine();
-                writeInFile(path, addRewr);
+        switch (desiredDirectory) {
+            case "back": {
+                goBack(path);
+            }
+            break;
+            case "create": {
+                writeInFile(createFile(path));
+                break;
+            }
+            default: {
+                path = files[Integer.parseInt(desiredDirectory)].toString();
+                if (files[Integer.parseInt(desiredDirectory)].isDirectory()) {
+                    getDirectories(path);
+                } else if (files[Integer.parseInt(desiredDirectory)].isFile()) {
+                    System.out.println("do you want to add/rewrite/delete file? ");
+                    String toDo = in.nextLine();
+                    changeFile(toDo,files[Integer.parseInt(desiredDirectory)] );
+                }
+            }
+        }
+    }
+
+    private void changeFile(String toDo, File file) {
+        switch (toDo){
+            case "delete":{
+                file.delete(); break;
+            }
+            case "add": {
+                addToFile(file);break;
+            }
+            case "rewrite":{
+                writeInFile(file.getName());break;
+            }
+        }
+    }
+
+    private void addToFile(File file){
+        Writer out = null;
+        System.out.println("Enter text: ");
+        String textToFile = in.nextLine();
+        try {
+            out = new FileWriter(file.getName(), true);
+            out.write(textToFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -73,22 +114,29 @@ public class Directories {
         return textFromFile;
     }
 
-    private void writeInFile(String writeFileName, String addRewrite) {
-        BufferedWriter bw;
-        FileWriter out;
-
-        System.out.println("Enter new text: ");
-        String textToFile = in.nextLine().trim().toLowerCase();
+    private void writeInFile(String writeFileName) {
+        System.out.println("Enter text: ");
+        String textToFile = in.nextLine();
+        Writer out = null;
         try {
-            if (addRewrite.equals("add")) {
-                out = new FileWriter(writeFileName, true);
-            } else {
-                out = new FileWriter(writeFileName, false);
-            }
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-16"));
             out.write(textToFile);
-            out.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private String createFile(String path) {
+        System.out.println("enter the file name");
+        String fileName = path + in.nextLine()+".txt";
+        File newFile = new File(fileName);
+        return fileName;
+    }
 }
+
