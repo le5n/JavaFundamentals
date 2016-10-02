@@ -3,25 +3,33 @@ package homeworkFive.taskOne;
 import java.io.*;
 import java.util.Scanner;
 
-public class Files {
-    Scanner in = new Scanner(System.in);
+class Files {
+   private Scanner in = new Scanner(System.in);
 
     void changeFile(String toDo, File file) {
-        switch (toDo){
-            case "delete":{
-                file.delete(); break;
+        switch (toDo) {
+            case "delete": {
+                file.delete();
+                break;
             }
             case "add": {
-                addToFile(file);break;
+                addToFile(file);
+                break;
             }
-            case "rewrite":{
+            case "rewrite": {
                 String fileName = file.getAbsolutePath();
                 System.out.println(fileName);
-                writeInFile(fileName);break;
+                writeInFile(fileName);
+                break;
+            }
+            default:{
+                System.out.println("Wrong input");
+                System.exit(-1);
             }
         }
     }
-     void addToFile(File file){
+
+    private void addToFile(File file) {
         Writer out = null;
         System.out.println("Enter text to add: ");
         String textToFile = in.nextLine();
@@ -30,11 +38,12 @@ public class Files {
             out.write(textToFile);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
-                out.flush();
-                out.close();
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -52,7 +61,10 @@ public class Files {
             e.printStackTrace();
         } finally {
             try {
-                out.close();
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,15 +83,24 @@ public class Files {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return textFromFile;
     }
 
-
     String createFile(String path) {
         System.out.println("enter the file name");
-        String fileName = path + in.nextLine()+".txt";
-        File newFile = new File(fileName);
+        String fileName = path + in.nextLine() + ".txt";
+
+        new File(fileName);
+
         return fileName;
     }
 }
