@@ -1,10 +1,11 @@
 package homeworkFive.taskOne;
 
-import java.io.*;
+import java.io.File;
 import java.util.Scanner;
 
 public class Directories {
     private Scanner in = new Scanner(System.in);
+    Files fileObj = new Files();
 
     public static void main(String[] args) {
         Directories directories = new Directories();
@@ -36,51 +37,12 @@ public class Directories {
             }
             break;
             case "create": {
-                writeInFile(createFile(path));
+                fileObj.writeInFile(fileObj.createFile(path));
                 break;
             }
             default: {
-                path = files[Integer.parseInt(desiredDirectory)].toString();
-                if (files[Integer.parseInt(desiredDirectory)].isDirectory()) {
-                    getDirectories(path);
-                } else if (files[Integer.parseInt(desiredDirectory)].isFile()) {
-                    System.out.println("do you want to add/rewrite/delete file? ");
-                    String toDo = in.nextLine();
-                    changeFile(toDo,files[Integer.parseInt(desiredDirectory)] );
-                }
-            }
-        }
-    }
+                dealWithFiles(desiredDirectory,files);
 
-    private void changeFile(String toDo, File file) {
-        switch (toDo){
-            case "delete":{
-                file.delete(); break;
-            }
-            case "add": {
-                addToFile(file);break;
-            }
-            case "rewrite":{
-                writeInFile(file.getName());break;
-            }
-        }
-    }
-
-    private void addToFile(File file){
-        Writer out = null;
-        System.out.println("Enter text: ");
-        String textToFile = in.nextLine();
-        try {
-            out = new FileWriter(file.getName(), true);
-            out.write(textToFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -97,46 +59,16 @@ public class Directories {
         }
         getDirectories(newPath);
     }
-
-    private StringBuilder readFile(String fileName) {
-        StringBuilder textFromFile = new StringBuilder();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
-            while (br.ready()) {
-                String line = br.readLine();
-                textFromFile.append(line);
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void dealWithFiles(String desiredDirectory, File[] files) {
+        String path = files[Integer.parseInt(desiredDirectory)].toString();
+        if (files[Integer.parseInt(desiredDirectory)].isDirectory()) {
+            getDirectories(path);
+        } else if (files[Integer.parseInt(desiredDirectory)].isFile()) {
+            System.out.println(fileObj.readFile(path));
+            System.out.println("do you want to add/rewrite/delete file? ");
+            String toDo = in.nextLine();
+            fileObj.changeFile(toDo,files[Integer.parseInt(desiredDirectory)] );
         }
-        return textFromFile;
-    }
-
-    private void writeInFile(String writeFileName) {
-        System.out.println("Enter text: ");
-        String textToFile = in.nextLine();
-        Writer out = null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-16"));
-            out.write(textToFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String createFile(String path) {
-        System.out.println("enter the file name");
-        String fileName = path + in.nextLine()+".txt";
-        File newFile = new File(fileName);
-        return fileName;
     }
 }
 
