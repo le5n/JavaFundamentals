@@ -3,34 +3,29 @@ package homeworkFive.taskOne;
 import java.io.File;
 import java.util.Scanner;
 
-public class Directories {
+class Directories {
     private Scanner in = new Scanner(System.in);
-    Files fileObj = new Files();
+    private Files fileObj = new Files();
 
-    public static void main(String[] args) {
-        Directories directories = new Directories();
-        System.out.print("Enter path: ");
-        String path = "D:\\";
-        directories.getDirectories(path);
-    }
-
-    void getDirectories(String path) {
-
+    void showDirectories(String path) {
         File dir = new File(path);
-
         File[] files = dir.listFiles();
 
         for (int i = 0; i < files.length; i++) {
             System.out.println(i + ") " + files[i]);
         }
 
+        dealWithDirectories(files, path);
+    }
+
+    private void dealWithDirectories(File[] files, String path) {
         System.out.print("You can enter the number of directory you want to see" +
                 "\nor enter 'back' to go back" +
                 "\nor enter 'create' to create new .txt file" +
                 "\nor enter 'delete' to delete file" +
                 "\nor enter number of .txt file to change it: ");
+
         String desiredDirectory = in.nextLine().toLowerCase().trim();
-        System.out.println(desiredDirectory);
         switch (desiredDirectory) {
             case "back": {
                 goBack(path);
@@ -41,8 +36,7 @@ public class Directories {
                 break;
             }
             default: {
-                dealWithFiles(desiredDirectory,files);
-
+                dealWithFiles(desiredDirectory, files);
             }
         }
     }
@@ -57,17 +51,18 @@ public class Directories {
                 newPath += direct[i] + "\\";
             }
         }
-        getDirectories(newPath);
+        showDirectories(newPath);
     }
+
     private void dealWithFiles(String desiredDirectory, File[] files) {
         String path = files[Integer.parseInt(desiredDirectory)].toString();
         if (files[Integer.parseInt(desiredDirectory)].isDirectory()) {
-            getDirectories(path);
+            showDirectories(path);
         } else if (files[Integer.parseInt(desiredDirectory)].isFile()) {
             System.out.println(fileObj.readFile(path));
             System.out.println("do you want to add/rewrite/delete file? ");
             String toDo = in.nextLine();
-            fileObj.changeFile(toDo,files[Integer.parseInt(desiredDirectory)] );
+            fileObj.changeFile(toDo, files[Integer.parseInt(desiredDirectory)]);
         }
     }
 }
