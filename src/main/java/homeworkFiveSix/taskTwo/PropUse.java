@@ -8,6 +8,7 @@ class PropUse {
     private Properties properties = new Properties();
     private boolean isLoaded = false;
 
+    //task2 in hw6
     Map addObjects(String fileName) {
         Set<String> keyNames = properties.stringPropertyNames();
         Map<String, String> propCollection = new HashMap<>();
