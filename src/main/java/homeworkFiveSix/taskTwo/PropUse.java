@@ -25,7 +25,9 @@ class PropUse {
             if (propCollection.containsKey(key)) {
                 System.out.println("key is already exists in collection");
             }
-            propCollection.put(key, properties.getProperty(key));
+            else {
+                propCollection.put(key, properties.getProperty(key));
+            }
         }
 
         return propCollection;
