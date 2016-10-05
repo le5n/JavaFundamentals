@@ -1,4 +1,4 @@
-package homeworkFive.taskOne;
+package homeworkFiveSix.taskOne;
 
 import java.io.*;
 import java.util.Scanner;

@@ -1,17 +1,19 @@
-package homeworkFive.taskTwo;
+package homeworkFiveSix.taskTwo;
 
+import homeworkFiveSix.taskTwo.PropUse;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class PropUseTest {
-    PropUse propUse = new PropUse();
+    private PropUse propUse = new PropUse();
     @Test
     public void readKeyTest() throws Exception {
         propUse.load("D:\\Программы\\JavaFundamentals\\src\\main\\resources\\PropUseFile.properties");
         String actualKey = propUse.findKey("KEY1");
         String expectedKey = "this is text in key1";
+        propUse.addObjects("D:\\Программы\\JavaFundamentals\\src\\main\\resources\\PropUseFile.properties");
         Assert.assertEquals(expectedKey,actualKey);
     }
 
@@ -20,4 +22,6 @@ public class PropUseTest {
         propUse.load("D:\\Программы\\JavaFundamentals\\src\\main\\resources\\PropUseFile.properties");
         propUse.findKey("not existing key");
     }
+
+
 }
