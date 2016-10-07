@@ -47,7 +47,6 @@ class Movie implements Serializable {
 
         Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
         Matcher m = p.matcher(fileName);
-
         if (m.matches()) {
 
             try (FileInputStream fileIn = new FileInputStream(fileName);
@@ -59,11 +58,9 @@ class Movie implements Serializable {
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
         } else {
             System.out.println("wrong file name");
         }
-
         return null;
     }
 

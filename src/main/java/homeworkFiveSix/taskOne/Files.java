@@ -30,52 +30,31 @@ class Files {
     }
 
     private void addToFile(File file) {
-        Writer out = null;
         System.out.println("Enter text to add: ");
         String textToFile = in.nextLine();
-        try {
-            out = new FileWriter(file.getAbsoluteFile(), true);
+
+        try (Writer out = new FileWriter(file.getAbsoluteFile(), true)){
             out.write(textToFile);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     void writeInFile(String writeFileName) {
         System.out.println("Enter text: ");
         String textToFile = in.nextLine();
-        Writer out = null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-8"));
+
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-8"))){
             out.write(textToFile);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     StringBuilder readFile(String fileName) {
         StringBuilder textFromFile = new StringBuilder();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"))){
             while (br.ready()) {
                 String line = br.readLine();
                 textFromFile.append(line);
@@ -83,15 +62,8 @@ class Files {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+
         return textFromFile;
     }
 
