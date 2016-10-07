@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ByteIO {
+ class ByteIO {
 
     StringBuilder findKeyWords(String fileName, String keyFileName) {
         List<String> cleanText = new ArrayList<>();
@@ -17,8 +17,7 @@ public class ByteIO {
 
         List<String> wordsInFIle = searchWord(fileName);
         List<String> keyWords = searchWord(keyFileName);
-        System.out.println(wordsInFIle);
-        System.out.println(keyWords);
+
         cleanText.addAll(wordsInFIle.stream().filter(keyWords::contains).collect(Collectors.toList()));
         for (int i = 0; i < cleanText.size(); i++) {
             cleanTextSB.append(cleanText.get(i)).append(" ");
@@ -56,42 +55,33 @@ public class ByteIO {
         byte[] byteText;
         char[] charFileText = null;
 
-        FileInputStream inFile;
+       try (FileInputStream inFile = new FileInputStream(fileName)) {
+           int countBytes = inFile.available();
 
-        try {
-            inFile = new FileInputStream(fileName);
-            int countBytes = inFile.available();
+           byteText = new byte[countBytes];
+           charFileText = new char[countBytes];
 
-            byteText = new byte[countBytes];
-            charFileText = new char[countBytes];
+           inFile.read(byteText);
 
-            inFile.read(byteText);
-
-            for (int i = 0; i < countBytes; i++) {
-                charFileText[i] = (char) byteText[i];
-            }
-
-            inFile.close();
-        } catch (IOException e) {
+           for (int i = 0; i < countBytes; i++) {
+               charFileText[i] = (char) byteText[i];
+           }
+       }
+         catch (IOException e) {
             e.printStackTrace();
         }
         return charFileText;
     }
 
     void writeInFile(StringBuilder noteSB, String fileName) {
-        FileOutputStream outFile;
         char [] note = convertToChar(noteSB);
         byte[] bytesToWrite = new byte[note.length];
 
-        try {
-            outFile = new FileOutputStream(fileName);
+        try (FileOutputStream outFile = new FileOutputStream(fileName)){
             for (int i = 0; i < note.length; i++) {
                 bytesToWrite[i] = (byte) note[i];
             }
             outFile.write(bytesToWrite);
-
-            outFile.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

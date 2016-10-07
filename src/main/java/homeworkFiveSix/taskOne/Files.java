@@ -19,6 +19,7 @@ class Files {
             case "rewrite": {
                 String fileName = file.getAbsolutePath();
                 System.out.println(fileName);
+
                 writeInFile(fileName);
                 break;
             }
