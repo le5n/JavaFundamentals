@@ -45,17 +45,15 @@ class CharacterIO {
     private StringBuilder readFile(String fileName) {
 
         StringBuilder textInFile = new StringBuilder();
-        try {
-            FileReader fr = new FileReader(fileName);
-            BufferedReader br = new BufferedReader(fr);
+        try (FileReader fr = new FileReader(fileName);
+             BufferedReader br = new BufferedReader(fr)) {
 
             String line;
-            while ((line = br.readLine())!=null){
+            while ((line = br.readLine()) != null) {
                 textInFile.append(line).append(" ");
             }
-            fr.close();
-            br.close();
             return textInFile;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,11 +62,8 @@ class CharacterIO {
 
     void writeInFile(StringBuilder noteSB, String fileName) {
         String textToWrite = noteSB.toString();
-        try {
-            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)))) {
             out.write(textToWrite);
-            out.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

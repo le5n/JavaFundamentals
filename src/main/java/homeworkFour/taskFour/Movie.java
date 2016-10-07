@@ -27,54 +27,39 @@ class Movie implements Serializable {
 
         if (m.matches()) {
             File file = new File("movies.bin");
-            FileOutputStream fileOut = null;
-            ObjectOutputStream objectOut = null;
 
-            try {
-                fileOut = new FileOutputStream(file);
-                objectOut = new ObjectOutputStream(fileOut);
+            try (FileOutputStream fileOut = new FileOutputStream(file);
+                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+
                 objectOut.writeObject(movies);
+
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    objectOut.flush();
-                    fileOut.close();
-                    objectOut.close();
-                } catch (IOException | NullPointerException e) {
-                    e.printStackTrace();
-                }
             }
+
         } else {
             System.out.println("wrong file name");
         }
     }
 
     List<Movie> unSerialize(String fileName) {
-        FileInputStream fileIn = null;
-        ObjectInputStream objectIn = null;
         List<Movie> unserialized;
 
         Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
         Matcher m = p.matcher(fileName);
 
         if (m.matches()) {
-            try {
-                fileIn = new FileInputStream(fileName);
-                objectIn = new ObjectInputStream(fileIn);
+
+            try (FileInputStream fileIn = new FileInputStream(fileName);
+                 ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+
                 unserialized = (List<Movie>) objectIn.readObject();
                 return unserialized;
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    fileIn.close();
-                    objectIn.close();
-                } catch (IOException | NullPointerException e) {
-                    e.printStackTrace();
-                }
             }
+
         } else {
             System.out.println("wrong file name");
         }
