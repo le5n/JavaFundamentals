@@ -14,13 +14,11 @@ public class RegexPictures {
         String regex = "[РИСУНОКрисунок]{3,7}\\.?\\s\\d";
         Pattern p = Pattern.compile(regex);
 
-        BufferedReader br = null;
-
         List<Integer> pictureNumbers = new ArrayList<>();
 
-        try {
-            br = new BufferedReader(new FileReader(
-                    "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\article.html"));
+        try (BufferedReader br = new BufferedReader(new FileReader(
+                "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\article.html"))) {
+
             String line = null;
 
             while ((line = br.readLine()) != null) {
@@ -38,12 +36,6 @@ public class RegexPictures {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         if (pictureNumbers.get(0) > pictureNumbers.get(1)) {
