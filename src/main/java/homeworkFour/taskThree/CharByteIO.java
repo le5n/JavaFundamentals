@@ -10,6 +10,7 @@ class CharByteIO {
 
         try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-16"))) {
             out.write(textToFile);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

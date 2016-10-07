@@ -64,6 +64,7 @@ class CharacterIO {
         String textToWrite = noteSB.toString();
         try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)))) {
             out.write(textToWrite);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

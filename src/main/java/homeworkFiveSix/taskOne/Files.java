@@ -36,6 +36,7 @@ class Files {
 
         try (Writer out = new FileWriter(file.getAbsoluteFile(), true)){
             out.write(textToFile);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,6 +48,7 @@ class Files {
 
         try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFileName), "UTF-8"))){
             out.write(textToFile);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
