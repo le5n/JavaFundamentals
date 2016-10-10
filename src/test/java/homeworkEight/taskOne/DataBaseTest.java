@@ -3,6 +3,9 @@ package homeworkEight.taskOne;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +23,19 @@ public class DataBaseTest {
 
     @Test
     public void editUser() throws Exception {
-        //boolean actual = dataBase.editName("veryNewUser", 2);
-       // assertEquals(true, actual);
+        boolean actual = dataBase.editName(4, "Mary");
+        assertEquals(true, actual);
     }
-}
+
+    @Test
+    public void editPassword() throws Exception {
+        boolean actual = dataBase.editPassword(1, "newPassword");
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void information()throws Exception{
+        System.out.println(dataBase.getUsers("password"));
+    }
+    }
+

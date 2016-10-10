@@ -1,6 +1,8 @@
 package homeworkEight.taskOne;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 class DataBase {
@@ -24,17 +26,39 @@ class DataBase {
         return connection;
     }
 
-    ResultSet getInfo() {
-        ResultSet set = null;
-        String prepStatement = "SELECT * FROM testdatabase";
-        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
-            set = preparedStatement.executeQuery();
+    List<Integer> getIds() {
+        List<Integer> ids = new ArrayList<>();
+        String prepSt = "SELECT id FROM testdatabase.users;";
+        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepSt)) {
+            ResultSet resultIds = preparedStatement.executeQuery();
+            while (resultIds.next()) {
+                ids.add(resultIds.getInt(1));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            Logger.getLogger("getInfo").info("cannot get information from db");
         }
-        return set;
+        return ids;
     }
+
+    List<String> getUsers(String column) {
+        List<String> names = new ArrayList<>();
+        String prepSt = "SELECT * FROM testdatabase.users;";
+        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepSt)) {
+            ResultSet resultIds = preparedStatement.executeQuery();
+            while (resultIds.next()) {
+                if (column == "userName")
+                    names.add(resultIds.getString(2));
+                else if (column == "password")
+                    names.add(resultIds.getString(3));
+                else
+                    Logger.getLogger("getUsers").info("no such column detected");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+
 
     boolean editName(int id, String newUserName) {
         String prepStatement = "UPDATE users SET userName = '" + newUserName + "' WHERE id =" + id;
