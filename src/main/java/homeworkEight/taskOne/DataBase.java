@@ -8,7 +8,7 @@ class DataBase {
     private String name;
     private String password;
 
-  DataBase(String URL, String name, String password) {
+    DataBase(String URL, String name, String password) {
         this.URL = URL;
         this.name = name;
         this.password = password;
@@ -24,7 +24,7 @@ class DataBase {
         return connection;
     }
 
-    ResultSet getInfo(String param, String dataBase) {
+    ResultSet getInfo() {
         ResultSet set = null;
         String prepStatement = "SELECT * FROM testdatabase";
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
@@ -33,7 +33,19 @@ class DataBase {
             e.printStackTrace();
             Logger.getLogger("getInfo").info("cannot get information from db");
         }
-      return set;
+        return set;
+    }
+
+    boolean editUser(String newUserName, int id) {
+        String prepStatement = "UPDATE users SET userName = '"+ newUserName + "' WHERE id =" +id;
+        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
+          preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
