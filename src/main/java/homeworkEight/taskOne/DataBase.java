@@ -36,16 +36,24 @@ class DataBase {
         return set;
     }
 
-    boolean editUser(String newUserName, int id) {
-        String prepStatement = "UPDATE users SET userName = '"+ newUserName + "' WHERE id =" +id;
+    boolean editName(int id, String newUserName) {
+        String prepStatement = "UPDATE users SET userName = '" + newUserName + "' WHERE id =" + id;
+        return execute(prepStatement);
+    }
+
+    boolean editPassword(int id, String newPassword) {
+        String prepStatement = "UPDATE users SET password = '" + newPassword + "' WHERE id =" + id;
+        return execute(prepStatement);
+    }
+
+    private boolean execute(String prepStatement) {
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
-          preparedStatement.execute();
+            preparedStatement.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
 
