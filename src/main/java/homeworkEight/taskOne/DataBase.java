@@ -46,9 +46,9 @@ class DataBase {
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepSt)) {
             ResultSet resultIds = preparedStatement.executeQuery();
             while (resultIds.next()) {
-                if (column == "userName")
+                if (column.equals("userName"))
                     names.add(resultIds.getString(2));
-                else if (column == "password")
+                else if (column.equals("password"))
                     names.add(resultIds.getString(3));
                 else
                     Logger.getLogger("getUsers").info("no such column detected");
@@ -58,7 +58,6 @@ class DataBase {
         }
         return names;
     }
-
 
     boolean editName(int id, String newUserName) {
         String prepStatement = "UPDATE users SET userName = '" + newUserName + "' WHERE id =" + id;
@@ -70,6 +69,11 @@ class DataBase {
         return execute(prepStatement);
     }
 
+    boolean deleteTable(String tableName) {
+        String prepStatement = "drop table " + tableName + ";";
+        return execute(prepStatement);
+    }
+
     private boolean execute(String prepStatement) {
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
             preparedStatement.execute();
@@ -78,6 +82,23 @@ class DataBase {
             e.printStackTrace();
             return false;
         }
+    }
+
+    StringBuilder getNote(int id) {
+        String prepStatement = "select * from testdatabase.users where id=" + id + ";";
+        StringBuilder line = new StringBuilder();
+        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
+            ResultSet resultSet = preparedStatement.executeQuery(prepStatement);
+            while (resultSet.next()) {
+                line.append(resultSet.getInt(1)).append(" ");
+                line.append(resultSet.getString(2)).append(" ");
+                line.append(resultSet.getString(3));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return line;
     }
 
 

@@ -3,9 +3,6 @@ package homeworkEight.taskOne;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,9 +30,12 @@ public class DataBaseTest {
         assertEquals(true, actual);
     }
 
+
     @Test
-    public void information()throws Exception{
-        System.out.println(dataBase.getUsers("password"));
+    public void getLine() throws Exception{
+        String actual = dataBase.getNote(1).toString();
+        String expected = "1 newUser newPassword";
+        assertEquals(actual,expected);
     }
-    }
+}
 
