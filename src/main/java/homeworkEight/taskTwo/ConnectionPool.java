@@ -9,16 +9,16 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
- class ConnectionPool {
+class ConnectionPool {
     private BlockingQueue<Connection> connectionQueue;
 
 
-    public ConnectionPool(String pathToConfig) {
+    ConnectionPool(String pathToConfig) {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(pathToConfig));
             Class.forName(properties.getProperty("driver"));
-        } catch (ClassNotFoundException|IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         String url = properties.getProperty("url");
@@ -35,7 +35,7 @@ import java.util.concurrent.BlockingQueue;
         }
     }
 
-    public Connection getConnection() {
+    Connection getConnection() {
         Connection connection = null;
         try {
             connection = connectionQueue.take();
@@ -44,11 +44,12 @@ import java.util.concurrent.BlockingQueue;
         }
         return connection;
     }
-    void acceptConnection (PooledConnection connection){
+
+    void acceptConnection(PooledConnection connection) {
         connectionQueue.offer(connection);
     }
 
-    public void useAndDelete() {
+    public void useAndClose() {
         try {
             Connection connection;
 
