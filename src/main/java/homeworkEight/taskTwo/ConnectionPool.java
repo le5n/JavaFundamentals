@@ -21,6 +21,7 @@ class ConnectionPool implements AutoCloseable {
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
+
         String url = properties.getProperty("url");
         int poolSize = Integer.parseInt(properties.getProperty("poolSize"));
 
@@ -36,26 +37,11 @@ class ConnectionPool implements AutoCloseable {
     }
 
     Connection getConnection() throws InterruptedException {
-           return  connectionQueue.take();
+        return connectionQueue.take();
     }
 
     void acceptConnection(PooledConnection connection) {
         connectionQueue.offer(connection);
-    }
-
-    public void useAndClose() {
-        try {
-            Connection connection;
-
-            while ((connection = connectionQueue.poll()) != null) {
-                if (!connection.getAutoCommit()) {
-                    connection.commit();
-                }
-                ((PooledConnection) connection).reallyClose();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

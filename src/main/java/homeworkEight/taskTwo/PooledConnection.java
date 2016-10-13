@@ -12,7 +12,6 @@ import java.util.concurrent.Executor;
     PooledConnection(Connection connection, ConnectionPool connectionPool) {
         this.connection = connection;
         this.connectionPool = connectionPool;
-
     }
 
     @Override
@@ -35,7 +34,8 @@ import java.util.concurrent.Executor;
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+    public PreparedStatement prepareStatement(
+            String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
         return connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
     }
 
@@ -171,17 +171,20 @@ import java.util.concurrent.Executor;
     }
 
     @Override
-    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+    public Statement createStatement(
+            int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
         return connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+    public PreparedStatement prepareStatement(
+            String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
         return connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
     }
 
     @Override
-    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+    public CallableStatement prepareCall(
+            String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
         return connection.prepareCall(sql, resultSetType, resultSetConcurrency);
     }
 
