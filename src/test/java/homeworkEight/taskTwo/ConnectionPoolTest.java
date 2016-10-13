@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 public class ConnectionPoolTest {
     static private String pathToConfig = "D:\\Программы\\JavaFundamentals\\src\\test\\resources\\db.properties";

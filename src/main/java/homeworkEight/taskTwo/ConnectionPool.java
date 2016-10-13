@@ -9,8 +9,8 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-class ConnectionPool {
-    private BlockingQueue<Connection> connectionQueue;
+class ConnectionPool implements AutoCloseable {
+    private BlockingQueue<PooledConnection> connectionQueue;
 
 
     ConnectionPool(String pathToConfig) {
@@ -35,14 +35,8 @@ class ConnectionPool {
         }
     }
 
-    Connection getConnection() {
-        Connection connection = null;
-        try {
-            connection = connectionQueue.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return connection;
+    Connection getConnection() throws InterruptedException {
+           return  connectionQueue.take();
     }
 
     void acceptConnection(PooledConnection connection) {
@@ -64,4 +58,11 @@ class ConnectionPool {
         }
     }
 
+    @Override
+    public void close() throws Exception {
+        for (PooledConnection connetion : connectionQueue) {
+            connetion.reallyClose();
+        }
+    }
 }
+
