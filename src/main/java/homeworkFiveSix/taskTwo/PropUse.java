@@ -51,6 +51,4 @@ class PropUse {
         }
         return resultKey;
     }
-
-
 }

@@ -44,6 +44,5 @@ public class PropUseTest {
         Map<String, String> actualMap = propUse.addObjects(fileName);
 
         Assert.assertEquals(expectedMap, actualMap);
-
     }
 }

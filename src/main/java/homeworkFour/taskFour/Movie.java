@@ -10,6 +10,7 @@ class Movie implements Serializable {
     private List<String> actors = new ArrayList<>();
     private String movieName;
     private int year;
+    private static Pattern fileNamePattern = Pattern.compile("\\w+\\.[bin]{3}");
 
 
     Movie(String movieName, int year) {
@@ -22,17 +23,14 @@ class Movie implements Serializable {
     }
 
     void serialize(List<Movie> movies, String fileName) {
-        Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
-        Matcher m = p.matcher(fileName);
+        Matcher matcher = fileNamePattern.matcher(fileName);
 
-        if (m.matches()) {
+        if (matcher.matches()) {
             File file = new File("movies.bin");
 
             try (FileOutputStream fileOut = new FileOutputStream(file);
                  ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-
                 objectOut.writeObject(movies);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,7 +41,6 @@ class Movie implements Serializable {
     }
 
     List<Movie> unSerialize(String fileName) {
-        List<Movie> unserialized;
 
         Pattern p = Pattern.compile("\\w+\\.[bin]{3}");
         Matcher m = p.matcher(fileName);
@@ -51,10 +48,7 @@ class Movie implements Serializable {
 
             try (FileInputStream fileIn = new FileInputStream(fileName);
                  ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
-
-                unserialized = (List<Movie>) objectIn.readObject();
-                return unserialized;
-
+                return (List<Movie>) objectIn.readObject();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

@@ -9,27 +9,29 @@ class DataBase {
     private String URL;
     private String name;
     private String password;
+    private Connection connection;
 
     DataBase(String URL, String name, String password) {
         this.URL = URL;
         this.name = name;
         this.password = password;
+        setConnection();
     }
 
-    Connection setConnection() throws SQLException {
+    private Connection setConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+            connection = DriverManager.getConnection(URL, name, password);
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        Connection connection = DriverManager.getConnection(URL, name, password);
         return connection;
     }
 
     List<Integer> getIds() {
         List<Integer> ids = new ArrayList<>();
         String prepSt = "SELECT id FROM testdatabase.users;";
-        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepSt)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(prepSt)) {
             ResultSet resultIds = preparedStatement.executeQuery();
             while (resultIds.next()) {
                 ids.add(resultIds.getInt(1));
@@ -45,13 +47,19 @@ class DataBase {
         String prepSt = "SELECT * FROM testdatabase.users;";
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepSt)) {
             ResultSet resultIds = preparedStatement.executeQuery();
+            // TODO: 15.10.2016 return List<User>
             while (resultIds.next()) {
-                if (column.equals("userName"))
-                    names.add(resultIds.getString(2));
-                else if (column.equals("password"))
-                    names.add(resultIds.getString(3));
-                else
-                    Logger.getLogger("getUsers").info("no such column detected");
+                switch (column) {
+                    case "userName":
+                        names.add(resultIds.getString(2));
+                        break;
+                    case "password":
+                        names.add(resultIds.getString(3));
+                        break;
+                    default:
+                        Logger.getLogger("getUsers").info("no such column detected");
+                        break;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,6 +69,8 @@ class DataBase {
 
     boolean editName(int id, String newUserName) {
         String prepStatement = "UPDATE users SET userName = '" + newUserName + "' WHERE id =" + id;
+        // TODO: 15.10.2016 to prepare statement to static
+//        String prepStatement = "UPDATE users SET userName = ? WHERE id = ?";
         return execute(prepStatement);
     }
 
@@ -70,12 +80,13 @@ class DataBase {
     }
 
     boolean deleteTable(String tableName) {
+        // TODO: 15.10.2016 to prepare statement
         String prepStatement = "drop table " + tableName + ";";
         return execute(prepStatement);
     }
 
     private boolean execute(String prepStatement) {
-        try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(prepStatement)) {
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
@@ -85,6 +96,7 @@ class DataBase {
     }
 
     StringBuilder getNote(int id) {
+        // TODO: 15.10.2016 to prepare statement to static
         String prepStatement = "select * from testdatabase.users where id=" + id + ";";
         StringBuilder line = new StringBuilder();
         try (PreparedStatement preparedStatement = setConnection().prepareStatement(prepStatement)) {

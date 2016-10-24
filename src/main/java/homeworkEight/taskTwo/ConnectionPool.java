@@ -11,9 +11,20 @@ import java.util.concurrent.BlockingQueue;
 
 class ConnectionPool implements AutoCloseable {
     private BlockingQueue<PooledConnection> connectionQueue;
+    private static ConnectionPool instance;
 
+    public static ConnectionPool getInstance(String pathConfig) {
+        if (instance == null) {
+            synchronized (ConnectionPool.class) {
+                if (instance == null) {
+                    instance = new ConnectionPool(pathConfig);
+                }
+            }
+        }
+        return instance;
+    }
 
-    ConnectionPool(String pathToConfig) {
+    private ConnectionPool(String pathToConfig) {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(pathToConfig));
@@ -46,8 +57,8 @@ class ConnectionPool implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        for (PooledConnection connetion : connectionQueue) {
-            connetion.reallyClose();
+        for (PooledConnection connection : connectionQueue) {
+            connection.reallyClose();
         }
     }
 }

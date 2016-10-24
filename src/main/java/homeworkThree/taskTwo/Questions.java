@@ -5,8 +5,16 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 class Questions {
-    Locale currentLocale;
+    private Locale currentLocale;
     private Scanner in = new Scanner(System.in);
+
+    public Locale getCurrentLocale() {
+        return currentLocale;
+    }
+
+    public void setDefaultLocale(Locale defaultLocale) {
+        this.currentLocale = defaultLocale;
+    }
 
     Locale setLocale() {
         System.out.println("Choose your locale: ru/eng");
@@ -16,7 +24,7 @@ class Questions {
             currentLocale = Locale.getDefault();
         } else if (localeActual.charAt(0) == 'e') {
             currentLocale = Locale.US;
-        } else if (localeActual == " ") {
+        } else if (localeActual.equals(" ")) {
             System.out.println("Incorrect input");
         }
         else {

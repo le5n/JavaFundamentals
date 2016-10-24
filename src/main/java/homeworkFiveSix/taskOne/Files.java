@@ -9,7 +9,8 @@ class Files {
     void changeFile(String toDo, File file) {
         switch (toDo) {
             case "delete": {
-                file.delete();
+                boolean delete = file.delete();
+                System.out.println(delete);
                 break;
             }
             case "add": {
@@ -62,7 +63,6 @@ class Files {
                 String line = br.readLine();
                 textFromFile.append(line);
             }
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

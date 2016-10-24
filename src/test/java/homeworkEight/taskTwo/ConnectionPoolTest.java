@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ConnectionPoolTest {
-    static private String pathToConfig = "D:\\Программы\\JavaFundamentals\\src\\test\\resources\\db.properties";
     static private ConnectionPool connectionPool;
 
     @BeforeClass
     public static void init() {
-        connectionPool = new ConnectionPool(pathToConfig);
+        String pathToConfig = "D:\\Программы\\JavaFundamentals\\src\\test\\resources\\db.properties";
+        connectionPool = ConnectionPool.getInstance(pathToConfig);
     }
 
     @Test
@@ -24,19 +24,18 @@ public class ConnectionPoolTest {
         Collection<Book> books;
 
         try (Connection connection = connectionPool.getConnection();
-        Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM library.`anti-utopias`;")){
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM library.`anti-utopias`;")) {
             books = new ArrayList<>();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 books.add(
                         new Book(
-                                resultSet.getInt(1),
-                                resultSet.getString(2),
-                                resultSet.getString(3)
+                                resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("author")
                         ));
             }
         }
-        System.out.println(books);
-        Assert.assertTrue(books.contains(new Book(1,"1984","George Orwell")));
+        Assert.assertTrue(books.contains(new Book(1, "1984", "George Orwell")));
     }
 }

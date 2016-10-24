@@ -19,7 +19,7 @@ public class RegexPictures {
         try (BufferedReader br = new BufferedReader(new FileReader(
                 "D:\\Программы\\JavaFundamentals\\src\\main\\java\\homeworkThree\\taskThree\\article.html"))) {
 
-            String line = null;
+            String line;
 
             while ((line = br.readLine()) != null) {
                 Matcher m = p.matcher(line);

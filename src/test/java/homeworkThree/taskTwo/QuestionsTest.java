@@ -12,7 +12,7 @@ public class QuestionsTest {
 
     @Before
     public void setLocale() throws IOException {
-        questions.currentLocale = Locale.getDefault();
+        questions.setDefaultLocale(Locale.getDefault());
     }
 
     @Test

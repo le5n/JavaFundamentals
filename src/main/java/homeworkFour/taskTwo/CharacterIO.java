@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("Duplicates")
 class CharacterIO {
     StringBuilder findKeyWords(String fileName, String keyFileName) {
         List<String> cleanText = new ArrayList<>();
@@ -23,7 +24,7 @@ class CharacterIO {
         return cleanTextSB;
     }
 
-    private List searchWord(String fileName) {
+    private List<String> searchWord(String fileName) {
         StringBuilder inputFileText = readFile(fileName);
         Pattern p = Pattern.compile("[a-zA-Z]{2,12}");
 
